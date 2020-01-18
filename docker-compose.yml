@@ -1,0 +1,151 @@
+version: '3.7'
+
+services:
+  mysql57:
+    container_name: mysql57
+    image: mysql:5.7
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - mysql57-volume:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --performance-schema=0
+  mysql8:
+    container_name: mysql8
+    image: mysql:8.0
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - mysql8-volume:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --performance-schema=0
+  rails42:
+    container_name: rails42
+    build:
+      context: ./rails42
+      dockerfile: Dockerfile
+    tty: true
+    privileged: true
+    depends_on:
+      - mysql57
+    links:
+      - mysql57
+    volumes:
+      - ${PWD}/rails42:/opt/rails42:cached
+      - rails42-gems:/usr/local/bundle
+      - /opt/rails42/tmp/cache
+      - /opt/rails42/log
+      - /opt/rails42/.git
+      - /opt/rails42/.bundle
+    environment:
+      DB_HOST: mysql57
+      DB_USER: root
+      DB_PASSWORD: ''
+  rails50:
+    container_name: rails50
+    build:
+      context: ./rails50
+      dockerfile: Dockerfile
+    tty: true
+    privileged: true
+    depends_on:
+      - mysql57
+    links:
+      - mysql57
+    volumes:
+      - ${PWD}/rails50:/opt/rails50:cached
+      - rails50-gems:/usr/local/bundle
+      - /opt/rails50/tmp/cache
+      - /opt/rails50/log
+      - /opt/rails50/.git
+      - /opt/rails50/.bundle
+    environment:
+      DB_HOST: mysql57
+      DB_USER: root
+      DB_PASSWORD: ''
+  rails51:
+    container_name: rails51
+    build:
+      context: ./rails51
+      dockerfile: Dockerfile
+    tty: true
+    privileged: true
+    depends_on:
+      - mysql57
+    links:
+      - mysql57
+    volumes:
+      - ${PWD}/rails51:/opt/rails51:cached
+      - rails51-gems:/usr/local/bundle
+      - /opt/rails51/tmp/cache
+      - /opt/rails51/log
+      - /opt/rails51/.git
+      - /opt/rails51/.bundle
+    environment:
+      DB_HOST: mysql57
+      DB_USER: root
+      DB_PASSWORD: ''
+  rails52:
+    container_name: rails52
+    build:
+      context: ./rails52
+      dockerfile: Dockerfile
+    tty: true
+    privileged: true
+    depends_on:
+      - mysql57
+    links:
+      - mysql57
+    volumes:
+      - ${PWD}/rails52:/opt/rails52:cached
+      - rails52-gems:/usr/local/bundle
+      - /opt/rails52/tmp/cache
+      - /opt/rails52/log
+      - /opt/rails52/.git
+      - /opt/rails52/.bundle
+    environment:
+      DB_HOST: mysql57
+      DB_USER: root
+      DB_PASSWORD: ''
+  rails60:
+    container_name: rails60
+    build:
+      context: ./rails60
+      dockerfile: Dockerfile
+    tty: true
+    privileged: true
+    depends_on:
+      - mysql8
+    links:
+      - mysql8
+    volumes:
+      - ${PWD}/rails60:/opt/rails60:cached
+      - rails60-gems:/usr/local/bundle
+      - /opt/rails60/tmp/cache
+      - /opt/rails60/log
+      - /opt/rails60/.git
+      - /opt/rails60/.bundle
+    environment:
+      DB_HOST: mysql8
+      DB_USER: root
+      DB_PASSWORD: ''
+volumes:
+  mysql57-volume:
+    driver: local
+    external: false
+  mysql8-volume:
+    driver: local
+    external: false
+  rails42-gems:
+    driver: local
+    external: false
+  rails50-gems:
+    driver: local
+    external: false
+  rails51-gems:
+    driver: local
+    external: false
+  rails52-gems:
+    driver: local
+    external: false
+  rails60-gems:
+    driver: local
+    external: false
