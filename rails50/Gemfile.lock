@@ -81,7 +81,8 @@ GEM
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    puma (3.12.4)
+    puma (4.3.12)
+      nio4r (~> 2.0)
     racc (1.6.1)
     rack (2.1.1)
     rack-test (0.6.3)
@@ -164,7 +165,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   mysql2 (>= 0.3.18, < 0.6.0)
-  puma (~> 3.12)
+  puma (~> 4.3)
   rails (~> 5.0.7, >= 5.0.7.2)
   sass-rails (~> 5.0)
   spring
